@@ -1,0 +1,89 @@
+﻿@model AsientoModels
+@{
+    ViewData["Title"] = "Crear pago";
+    Layout = "~/Views/Shared/_LayoutAsientosContables.cshtml";
+}
+<style>
+    .table-responsive{
+        max-height:600px;
+    }
+</style>
+<div class="title mx-auto">
+    <h3 class="text-center">Crear Pago a cuenta</h3>
+</div>
+
+<div class="form-damasco container">
+
+  <div class="form-group">
+        <label asp-for="Sucursal">Sucursal</label>
+        <select asp-for="Sucursal" asp-items="Model.Sucursales" class="form-select" id="selectsucursal">
+            <option value="">Elige la Sucursal</option>
+        </select>
+  </div>
+  <div class="row g-2">
+      
+        <div class="col form-group">
+            <label>Debe</label>
+            <select id="select-cuenta-debe" asp-items="Model.CuentasContables" class="form-select select-cuenta-debe">
+                <option value="">Elige una cuenta</option>
+            </select>
+        </div>
+        <div class="col form-group">
+            <label>Haber</label>
+            <select id="select-cuenta-haber" asp-items="Model.CuentasContables" class="form-select select-cuenta-debe">
+                <option value="">Elige una cuenta</option>
+            </select>
+        </div>
+  </div>
+ 
+  <div class="row g-2">
+        <div class="col form-group">
+            <label>Monto</label>
+            <input class="form-control" />
+        </div>
+
+        <div class="col form-group">
+            <label asp-for="memo">Comentario</label>
+            <input asp-for="memo" class="form-control" />
+        </div>
+  </div>
+
+   
+    <div class="mt-3">
+        <div class="row">
+            <div class="col form-group">
+                <button class="btn btn-secondary" onclick="generarTabla()">Cargar asiento</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="container mt-2">
+    <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <table class="table table-bordered" id="table">
+                <thead>
+                    <tr>
+                        <th>Cuenta mayor/Código SN</th>
+                        <th>Cuenta mayor/Nombre SN</th>
+                        <th>Débito</th>
+                        <th>Crédito</th>
+                        <th>Comentario</th>
+                        
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <div class="row ">
+            <div class="col form-group">
+                <button class="btn btn-info" onclick="generarTabla()">Crear</button>
+                <button class="btn btn-warning" onclick="generarTabla()">Cancelar</button>
+            </div>
+           
+        </div>
+    </div>
+</div>
