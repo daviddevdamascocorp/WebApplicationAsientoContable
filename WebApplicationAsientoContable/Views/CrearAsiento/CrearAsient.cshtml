@@ -77,7 +77,27 @@
                     }
                 });
             });
-        });
+
+            if (response.ok) {
+                
+                const data = await response.json();
+                console.log(data)
+                $('input[name="tasa-cambiaria"]').val(data.resultado)
+            } else {
+                //showAlert('error', 'Error al generar la factura');
+            }
+        } catch (error) {
+            //showAlert('error', 'Error al comunicarse con el servidor.');
+        }
+
+    }
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById("fecha-cont").setAttribute('max', today);
+    function deleteRow(button) {
+        let row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        generarBalancesTotales()
+    }
     </script>
     
 }                  
