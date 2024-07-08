@@ -1,17 +1,9 @@
-﻿@model AsientoModels
+﻿@* For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860 *@
 @{
-    ViewData["Title"] = "Crear pago";
-    Layout = "~/Views/Shared/_LayoutAsientosContables.cshtml";
+    ViewData["Title"] = "Prueba Crear Asiento desde JSON";
 }
-<style>
-   
 
-    .tabla-asiento tbody {
-        display: block;
-        height: 400px;
-        overflow: scroll;
-      
-    }
+<h2>@ViewData["Title"]</h2>
 
        
 </style>
@@ -343,33 +335,41 @@
         }
     }
 
+                var form = $(this);
+                var formData = form.serialize();
 
-    //convierto a bolivares
-    function removeLocalCurrencyFormat(currencyString) {
-        console.log(currencyString)
-        // Remove any non-numeric characters (including commas)
-        const sanitizedString = currencyString.replace(/[^0-9,-]/g, '');
-        const decimalString = sanitizedString.replace(',', '.');
-        // Convert the sanitized string to a float
-        let floatValue;
-        if (!currencyString) {
-            floatValue = parseFloat(0);
-            return floatValue;
-        } else {
-            floatValue = parseFloat(decimalString)
-            return floatValue;
-        }
-      
-    }
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Éxito',
+                                text: response.message
+                            }).then(() => {
+                                // Opcional: puedes recargar la página después de cerrar la alerta
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.responseJSON.message
+                        });
+                    }
+                });
+            });
+        });
+    </script>
     
-    
-    function renderError() {
-        let msg = "Revisa la informacion a ingresar";
-        document.getElementById("error").innerHTML = `
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>Error!</strong> ${msg}.
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>`;
-    }
-
-</script>
+}                  

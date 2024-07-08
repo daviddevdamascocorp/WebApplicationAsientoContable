@@ -30,37 +30,6 @@ C:\Users\Eduardo Mahmud\source\repos\WebApplicationAsientoContable\WebApplicatio
 C:\Users\Eduardo Mahmud\source\repos\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.pdb
 C:\Users\Eduardo Mahmud\source\repos\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.genruntimeconfig.cache
 C:\Users\Eduardo Mahmud\source\repos\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\ref\WebApplicationAsientoContable.dll
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\appsettings.Development.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\appsettings.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\libman.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\WebApplicationAsientoContable.staticwebassets.runtime.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\WebApplicationAsientoContable.exe
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\WebApplicationAsientoContable.deps.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\WebApplicationAsientoContable.runtimeconfig.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\WebApplicationAsientoContable.dll
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\WebApplicationAsientoContable.pdb
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\Interop.SAPbobsCOM.dll
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.csproj.ResolveComReference.cache
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.AssemblyInfoInputs.cache
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.AssemblyInfo.cs
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.csproj.CoreCompileInputs.cache
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.RazorAssemblyInfo.cache
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.RazorAssemblyInfo.cs
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\staticwebassets.build.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\staticwebassets.development.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\staticwebassets\msbuild.WebApplicationAsientoContable.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\staticwebassets\msbuild.build.WebApplicationAsientoContable.props
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.WebApplicationAsientoContable.props
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.WebApplicationAsientoContable.props
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\staticwebassets.pack.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\scopedcss\bundle\WebApplicationAsientoContable.styles.css
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\scopedcss\projectbundle\WebApplicationAsientoContable.bundle.scp.css
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.dll
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\refint\WebApplicationAsientoContable.dll
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.pdb
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.genruntimeconfig.cache
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\ref\WebApplicationAsientoContable.dll
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.sourcelink.json
+C:\Users\Eduardo Mahmud\source\repos\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.csproj.AssemblyReference.cache
+C:\Users\Eduardo Mahmud\source\repos\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\Eduardo Mahmud\source\repos\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebAppli.186FA705.Up2Date

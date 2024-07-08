@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging.Abstractions;
+using Newtonsoft.Json;
 using SAPbobsCOM;
 using WebApplicationAsientoContable.Controllers;
 using WebApplicationAsientoContable.Models;
@@ -10,6 +12,7 @@ namespace WebApplicationAsientoContable.Controllers
 {
     public class CrearAsiento : Controller
     {
+
         public IActionResult CrearAsient()
         {
             try
@@ -46,6 +49,7 @@ namespace WebApplicationAsientoContable.Controllers
                 return View(new AsientoModels());
             }
         }
+
 
         private List<SelectListItem> ObtenerSucursales()
         {
@@ -92,6 +96,7 @@ namespace WebApplicationAsientoContable.Controllers
 
             return sucursales;
         }
+
 
         private List<SelectListItem> ObtenerCuentasContables()
         {
@@ -140,69 +145,45 @@ namespace WebApplicationAsientoContable.Controllers
         }
 
 
-
-        [HttpPost]
-        public IActionResult CrearPago2([FromForm] AsientoModels detallesPago)
+        [HttpGet]
+        public JsonResult EnviarFactor(DateTime fecha)
         {
+            var factor = obtenerFactor(fecha);
+            return Json(new { factor });
+        }
+
+        private string obtenerFactor(DateTime fecha)
+        {
+            string factor = string.Empty;
             try
             {
-                Console.WriteLine("Intentando crear pago...");
-
                 if (Conexion.Conectar())
                 {
-                    Console.WriteLine("Conexión establecida correctamente.");
-                    Conexion.myCompany.StartTransaction();
+                    SAPbobsCOM.Company company = Conexion.myCompany;
+                    SAPbobsCOM.Recordset companyRecordSet = company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-                    
-                    int sucursal = detallesPago.Sucursal;
-                    string comentario = detallesPago.memo;
-                    string referencia= detallesPago.referencia;
-                    List<AsientoContableLinea> lineas = detallesPago.LineasContables;
+                    string queryStore = $"select rate from ortt where RateDate = '{fecha}' AND Currency='USD'";
+                    companyRecordSet.DoQuery(queryStore);
 
-                   
-                    var resultado = Crear(sucursal, lineas,comentario,referencia);
-
-                    if (resultado != -1)
+                    if (!companyRecordSet.EoF)
                     {
-                        
-                        Conexion.myCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-                        Console.WriteLine("Transacción completada con éxito.");
+                        factor = companyRecordSet.Fields.Item("rate").Value.ToString();
                     }
-                    else
-                    {
-                        
-                        Conexion.myCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-                        Console.WriteLine("Error al crear el asiento contable.");
-                        ViewData["Error"] = "Error al crear el asiento contable.";
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Error de conexión a SAP Business One.");
-                    ViewData["Error"] = "Error de conexión a SAP Business One.";
-                    detallesPago.CuentasContables = ObtenerCuentasContables();
-                    detallesPago.Sucursales = ObtenerSucursales();
-                    return View(detallesPago);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error general: " + ex.Message);
-                ViewData["Error"] = "Error general: " + ex.Message;
-                detallesPago.CuentasContables = ObtenerCuentasContables();
-                detallesPago.Sucursales = ObtenerSucursales();
-                return View(detallesPago);
+                Console.WriteLine("Error al obtener la descripción: " + ex.Message);
             }
             finally
             {
                 Conexion.Desconectar();
             }
 
-            
-            return RedirectToAction("Index");
+            return factor;
         }
 
-        private int Crear(int sucursal, List<AsientoContableLinea> lineas,string memo,string referencia)
+        private int Crear(int sucursal, DateTime fecha ,List<AsientoContableLinea> lineas, string memo, string referencia)
         {
             try
             {
@@ -214,12 +195,12 @@ namespace WebApplicationAsientoContable.Controllers
                     SAPbobsCOM.JournalEntries asientoContable = (SAPbobsCOM.JournalEntries)company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oJournalEntries);
 
                     // Configuración del asiento contable
-                    asientoContable.ReferenceDate = DateTime.Now;  
-                    asientoContable.TaxDate = DateTime.Now;       
-                    asientoContable.DueDate = DateTime.Now;       
-                    asientoContable.Memo =memo;
+                    asientoContable.ReferenceDate = fecha;
+                    asientoContable.TaxDate =fecha;
+                    asientoContable.DueDate = fecha;
+                    asientoContable.Memo = memo;
+                    asientoContable.Reference = referencia;
 
-                    
                     foreach (var linea in lineas)
                     {
                         asientoContable.Lines.AccountCode = linea.AccountCode;
@@ -227,10 +208,10 @@ namespace WebApplicationAsientoContable.Controllers
                         asientoContable.Lines.Credit = linea.Credit;
                         asientoContable.Lines.LineMemo = linea.LineMemo;
                         asientoContable.Lines.BPLID = sucursal;
+                        asientoContable.Lines.Reference1 = linea.Referencia1;
                         asientoContable.Lines.Add();
                     }
 
-                    // Intentar agregar el asiento contable a SAP Business One
                     int result = asientoContable.Add();
 
                     if (result != 0)
@@ -261,6 +242,35 @@ namespace WebApplicationAsientoContable.Controllers
             finally
             {
                 Conexion.Desconectar();
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult CrearAsientodesdejson([FromForm] string jsonAsiento)
+        {
+            try
+            {
+                AsientoContable asientoContable = JsonConvert.DeserializeObject<AsientoContable>(jsonAsiento);
+
+                int sucursal = asientoContable.Sucursal;
+                string comentario = asientoContable.comentario;
+                string referencia = asientoContable.referencia;
+                DateTime fecha = asientoContable.fecha;
+                List<AsientoContableLinea> lineas = asientoContable.LineasContables;
+
+                int resultado = Crear(sucursal, fecha,lineas, comentario, referencia);
+
+                if (resultado == -1)
+                {
+                    return BadRequest(new { success = false, message = "Error al crear el asiento contable." });
+                }
+
+                return Json(new { success = true, message = "Asiento contable creado exitosamente. DocEntry: " + resultado });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { success = false, message = "Error: " + ex.Message });
             }
         }
 
