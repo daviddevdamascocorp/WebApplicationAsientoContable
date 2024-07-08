@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Q9h17KdtUS8TMLndaLQswWAl0bxXyFRS3TwuRerEZGo=",
+  "Hash": "mOqqslCU7eVjBlCwMwJK62rkg6KPlHsgR9uItQn2yGA=",
   "Source": "WebApplicationAsientoContable",
   "BasePath": "_content/WebApplicationAsientoContable",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\wwwroot\\js\\jquery.maskMoney.min.js",
+      "SourceId": "WebApplicationAsientoContable",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\wwwroot\\",
+      "BasePath": "_content/WebApplicationAsientoContable",
+      "RelativePath": "js/jquery.maskMoney.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\jquery.maskMoney.min.js"
     },
     {
       "Identity": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\wwwroot\\js\\site.js",

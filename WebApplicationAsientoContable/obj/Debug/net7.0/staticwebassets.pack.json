@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\wwwroot\\js\\jquery.maskMoney.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.maskMoney.min.js"
+    },
+    {
       "Id": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -63,3 +63,4 @@ C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoCont
 C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.pdb
 C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.genruntimeconfig.cache
 C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\ref\WebApplicationAsientoContable.dll
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.sourcelink.json

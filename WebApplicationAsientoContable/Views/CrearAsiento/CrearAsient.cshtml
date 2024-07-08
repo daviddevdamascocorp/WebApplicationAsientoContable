@@ -4,47 +4,76 @@
     Layout = "~/Views/Shared/_LayoutAsientosContables.cshtml";
 }
 <style>
-    .table-responsive{
-        max-height:600px;
+   
+
+    .tabla-asiento tbody {
+        display: block;
+        height: 400px;
+        overflow: scroll;
+      
     }
+
+       
 </style>
+
+<link rel="stylesheet" href="~/select2/css/select2.css" />
+<link rel="stylesheet" href="~/select2-bootstrap-5-theme/select2-bootstrap-5-theme.css" />
 <div class="title mx-auto">
     <h3 class="text-center">Crear Pago a cuenta</h3>
 </div>
 
 <div class="form-damasco container">
 
-  <div class="form-group">
-        <label asp-for="Sucursal">Sucursal</label>
-        <select asp-for="Sucursal" asp-items="Model.Sucursales" class="form-select" id="selectsucursal">
-            <option value="">Elige la Sucursal</option>
-        </select>
-  </div>
+  
+    <div class="row g-2">
+        <div class="col form-group">
+            <label asp-for="Sucursal">Sucursal</label>
+            <select asp-for="Sucursal" asp-items="Model.Sucursales" class="form-select" id="select-sucursal">
+                <option value="">Elige la Sucursal</option>
+            </select>
+        </div>
+        <div class="col form-group">
+            <label>Fecha de contabilización
+            </label>
+            <input type="date" id="fecha-cont" class="form-control" value='@DateTime.Today.ToString("dd-MM-yyyy")' pattern="\d{4}-\d{2}-\d{2}" />
+        </div>
+       
+    </div>
   <div class="row g-2">
       
         <div class="col form-group">
-            <label>Debe</label>
-            <select id="select-cuenta-debe" asp-items="Model.CuentasContables" class="form-select select-cuenta-debe">
+            <label>Cuenta contable</label>
+            <select id="cuenta-contable" asp-items="Model.CuentasContables" class="form-select">
                 <option value="">Elige una cuenta</option>
             </select>
         </div>
         <div class="col form-group">
-            <label>Haber</label>
-            <select id="select-cuenta-haber" asp-items="Model.CuentasContables" class="form-select select-cuenta-debe">
-                <option value="">Elige una cuenta</option>
+            <label>Debe/Haber</label>
+            <select id="select-debe-haber" class="form-select">
+                <option value="">Elige una opcion</option>
+                <option value="1">Debe</option>
+                <option value="2">Haber</option>
             </select>
         </div>
   </div>
  
-  <div class="row g-2">
+  <div class="row g-4">
         <div class="col form-group">
             <label>Monto</label>
-            <input class="form-control" />
+            <input class="form-control" id="monto" />
         </div>
 
         <div class="col form-group">
             <label asp-for="memo">Comentario</label>
-            <input asp-for="memo" class="form-control" />
+            <input asp-for="memo" class="form-control" id="memo" />
+        </div>
+        <div class="col form-group">
+            <label >Referencia</label>
+            <input  class="form-control" id="referencia"/>
+        </div>
+        <div class="col form-group">
+            <label>Referencia 1</label>
+            <input class="form-control" id="referencia1" />
         </div>
   </div>
 
@@ -61,29 +90,284 @@
 <div class="container mt-2">
     <div class="panel panel-default">
         <div class="panel-body table-responsive">
-            <table class="table table-bordered" id="table">
+            <table class="table table-bordered table-sm" id="table">
                 <thead>
                     <tr>
                         <th>Cuenta mayor/Código SN</th>
                         <th>Cuenta mayor/Nombre SN</th>
                         <th>Débito</th>
                         <th>Crédito</th>
+                        <th>Débito(MS)</th>
+                        <th>Crédito(MS)</th>
                         <th>Comentario</th>
+                        <th>Referencia</th>
                         
                     </tr>
                 </thead>
-                <tbody id="tableBody"></tbody>
+                <tbody id="tableBody" class="tabla-asiento"></tbody>
+                <tfoot id="tableFoot" class="table-info">
+                 
+                </tfoot>
             </table>
         </div>
     </div>
 
     <div class="mt-3">
-        <div class="row ">
+        <div class="row">
             <div class="col form-group">
-                <button class="btn btn-info" onclick="generarTabla()">Crear</button>
+                <button class="btn btn-info" onclick="postAsientos()">Crear</button>
                 <button class="btn btn-warning" onclick="generarTabla()">Cancelar</button>
             </div>
            
         </div>
     </div>
 </div>
+<script src="~/select2/js/select2.js" defer></script>
+<script src="~/js/jquery.maskMoney.min.js" defer></script>
+<script>
+
+    $(document).ready(function () {
+        $('#cuenta-contable').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('Debe'),
+        });
+        
+    });
+    $(function () {
+        $('#monto').maskMoney({ allowNegative: false, thousands: '.', decimal: ',' });
+    })
+
+    async function generarTabla(){ 
+        let sucursal = document.getElementById('select-sucursal').value;
+        let fechaContabilizacion = document.getElementById('fecha-cont').value
+        let cuentaContableCodigo = $("#cuenta-contable").select2("val");
+        var CuentaNombreSelection = $("#cuenta-contable :selected").select2(this.data);
+        let cuentaContableNombre = $(CuentaNombreSelection).text();
+        let tipoDeAsiento = document.getElementById('select-debe-haber').value
+        let montoAsiento = $("#monto").maskMoney('unmasked')[0]
+        let comentarios = document.getElementById('memo').value
+        let referencia = document.getElementById('referencia').value
+        
+        if (!sucursal || !fechaContabilizacion || !cuentaContableCodigo || !montoAsiento) {
+            renderError();
+            return;
+        } else {
+           
+                     agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento, montoAsiento, comentarios)
+        }
+    }
+    var formatter = new Intl.NumberFormat('es-VE', {
+        style: 'currency',
+        currency: 'VED',
+        currencyDisplay: 'symbol',
+        minimumFractionDigits: 2
+    });
+   
+    function agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento,montoAsiento, comentarios) {
+        //limpio formularios
+      
+        document.getElementById('monto').value = ''
+       
+
+        //construimos tabla
+        const tableElement = document.getElementById('tableBody');
+        const trElement = document.createElement('tr');
+        //codigo de cuenta
+        const cuentaContableCodigoValue = document.createElement('td');
+        cuentaContableCodigoValue.setAttribute('id', 'cuentaContableCodigoValue');
+        //nombre de cuenta
+        const cuentaContableNombreValue =  document.createElement('td');
+        cuentaContableNombreValue.setAttribute('id', 'cuentaContableNombreValue');
+        //monto de debe en bolivars
+        const montoDebeValue = document.createElement('td');
+        montoDebeValue.setAttribute('id', 'montoDebeValue');
+        //monto de haber en bolivares
+        const montoHaberValue = document.createElement('td');
+        montoHaberValue.setAttribute('id', 'montoHaberValue');
+        //monto de debe en dolares
+        const montoDebeValueMs = document.createElement('td');
+        montoDebeValueMs.setAttribute('id', 'montoDebeValueMs');
+        //monto de haber en dolares
+        const montoHaberValueMs = document.createElement('td');
+        montoHaberValueMs.setAttribute('id', 'montoHaberValueMs');
+        //comentario
+        const comentarioValue = document.createElement('td');
+        comentarioValue.setAttribute('id', 'comentarioValue');
+        //referencia
+        const referenciaValue = document.createElement('td');
+        referenciaValue.setAttribute('id', 'referenciaValue');
+
+        //genero tabla
+        cuentaContableCodigoValue.innerHTML = cuentaContableCodigo
+        cuentaContableNombreValue.innerHTML = cuentaContableNombre
+        
+        //ajsuto formato de bolivares
+
+      
+        if (tipoDeAsiento === '1') {
+         
+
+            montoDebeValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
+
+            var rateDebe = montoAsiento / 36
+           
+            montoDebeValueMs.innerHTML = rateDebe.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+
+        }
+        else if (tipoDeAsiento === '2') {
+            montoHaberValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
+            var rateHaber = montoAsiento / 36
+            montoHaberValueMs.innerHTML = rateHaber.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+        }
+       
+        comentarioValue.innerHTML = `<input type="text" id="comentario" placeholder = "Comentario" >`
+        referenciaValue.innerHTML = `<input type="text" id="referencia" placeholder = "Referencia" >`
+
+        
+        trElement.appendChild(cuentaContableCodigoValue)
+        trElement.appendChild(cuentaContableNombreValue)
+        trElement.appendChild(montoDebeValue)
+        trElement.appendChild(montoHaberValue)
+        trElement.appendChild(montoDebeValueMs)
+        trElement.appendChild(montoHaberValueMs)
+        trElement.appendChild(comentarioValue)
+        trElement.appendChild(referenciaValue)
+        
+        tableElement.appendChild(trElement);
+        generarBalancesTotales()
+    }
+    buildFooterTable()
+    
+    function generarBalancesTotales() {
+        var table = document.getElementById("tableBody");
+           var montoDebeBolivares = 0
+        var montoHaberBolivares = 0
+        var montoDebeDolares = 0
+        var montoHaberDolares = 0
+            for (var i = 0; i < table.rows.length; i++) {
+            var dbBolivares = removeLocalCurrencyFormat(table.rows[i].cells[2].innerHTML)
+            var habBolivares = removeLocalCurrencyFormat(table.rows[i].cells[3].innerHTML)
+            var debDolares = removeLocalCurrencyFormat(table.rows[i].cells[4].innerHTML)
+            var habDolares = removeLocalCurrencyFormat(table.rows[i].cells[5].innerHTML)
+
+            montoDebeBolivares = montoDebeBolivares + dbBolivares;
+            montoHaberBolivares = montoHaberBolivares + habBolivares;
+            montoDebeDolares = montoDebeDolares + debDolares;
+            montoHaberDolares = montoHaberDolares + habDolares;
+        }
+        var contenidoDebeBol = document.getElementById('tfootDebeBoilivaresAsiento')
+        var contenidoHaberBol = document.getElementById('tfootHaberBoilivaresAsiento')
+        var contenidoDebeDolaresAsiento = document.getElementById('tfootDebeDolaresAsiento')
+        var contenidoHaberDolaresAsiento = document.getElementById('tfootHaberDolaresAsiento')
+        contenidoDebeBol.innerHTML = formatter.format(montoDebeBolivares).replace("VED", "Bs.");
+        contenidoHaberBol.innerHTML = formatter.format(montoHaberBolivares).replace("VED", "Bs.");
+
+        contenidoDebeDolaresAsiento.innerHTML = montoDebeDolares.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+        contenidoHaberDolaresAsiento.innerHTML = montoHaberDolares.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+    }
+    
+    function buildFooterTable() {
+       
+        //formato tfoot
+    //creo elemnto pie de table
+        const tableFoot = document.getElementById('tableFoot');
+        const trElementFoot = document.createElement('tr');
+        const tfootWhiteSpace1 = document.createElement('td');
+        const tfootWhiteSpace2 = document.createElement('td');
+        const tfootWhiteSpace3 = document.createElement('td');
+        const tfootWhiteSpace4 = document.createElement('td');
+        //id para html
+        const tfootDebeBoilivaresAsiento = document.createElement('td');
+        
+        tfootDebeBoilivaresAsiento.setAttribute('id', 'tfootDebeBoilivaresAsiento');
+        const tfootHaberBoilivaresAsiento = document.createElement('td');
+        tfootHaberBoilivaresAsiento.setAttribute('id', 'tfootHaberBoilivaresAsiento');
+        const tfootDebeDolaresAsiento = document.createElement('td');
+        tfootDebeDolaresAsiento.setAttribute('id', 'tfootDebeDolaresAsiento');
+        const tfootHaberDolaresAsiento = document.createElement('td');
+        tfootHaberDolaresAsiento.setAttribute('id', 'tfootHaberDolaresAsiento');
+        //montos pie de tabla
+        tfootDebeBoilivaresAsiento.innerHTML = 0
+        tfootHaberBoilivaresAsiento.innerHTML = 0
+        tfootDebeDolaresAsiento.innerHTML = 0
+        tfootHaberDolaresAsiento.innerHTML = 0
+        trElementFoot.appendChild(tfootWhiteSpace1)
+        trElementFoot.appendChild(tfootWhiteSpace2)
+        trElementFoot.appendChild(tfootDebeBoilivaresAsiento)
+        trElementFoot.appendChild(tfootHaberBoilivaresAsiento)
+        trElementFoot.appendChild(tfootDebeDolaresAsiento)
+        trElementFoot.appendChild(tfootHaberDolaresAsiento)
+        trElementFoot.appendChild(tfootWhiteSpace3)
+        trElementFoot.appendChild(tfootWhiteSpace4)
+        tableFoot.appendChild(trElementFoot)
+    }
+  
+    //armado de json
+    async function postAsientos() {
+        let sucursalValor = document.getElementById('select-sucursal')
+        let fechaContablilizacion = document.getElementById('fecha-cont')
+        let comentarioHeader = document.getElementById('memo')
+        let referneciaHeader = document.getElementById('referencia')
+        let referenciaHeader1 = document.getElementById('referencia1')
+        if (sucursalValor || fechaContablilizacion) {
+            var Asientos = []
+            $("#table tr").each(function () {
+                if ($(this).find('td').length > 0) {
+                   
+                    var asientoDetalle = {
+                      
+                        AccountCode: $(this).find("#cuentaContableCodigoValue").text(),
+                        Debit: removeLocalCurrencyFormat($(this).find("#montoDebeValue").text()),
+                        Credit: removeLocalCurrencyFormat($(this).find("#montoHaberValue").text()),
+                        LineMemo: $(this).find("#comentario").text(),
+                        Sucursal: sucursalValor,
+                        Referencia1: $(this).find("#referencia").text()
+
+
+                    };
+                    Asientos.push(asientoDetalle)
+                }
+            })
+
+            const objectAsiento = {
+                sucursal: sucursalValor,
+                fecha: fechaContablilizacion,
+                comentario: comentarioHeader,
+                referencia: referneciaHeader,
+                LineasContables: Asientos
+            }
+            console.log(JSON.stringify(objectAsiento));
+        }
+    }
+
+
+    //convierto a bolivares
+    function removeLocalCurrencyFormat(currencyString) {
+        console.log(currencyString)
+        // Remove any non-numeric characters (including commas)
+        const sanitizedString = currencyString.replace(/[^0-9,-]/g, '');
+        const decimalString = sanitizedString.replace(',', '.');
+        // Convert the sanitized string to a float
+        let floatValue;
+        if (!currencyString) {
+            floatValue = parseFloat(0);
+            return floatValue;
+        } else {
+            floatValue = parseFloat(decimalString)
+            return floatValue;
+        }
+      
+    }
+    
+    
+    function renderError() {
+        let msg = "Revisa la informacion a ingresar";
+        document.getElementById("error").innerHTML = `
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Error!</strong> ${msg}.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`;
+    }
+
+</script>
