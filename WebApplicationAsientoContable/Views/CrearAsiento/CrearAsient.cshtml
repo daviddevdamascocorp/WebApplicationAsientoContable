@@ -120,6 +120,7 @@
 </div>
 <script src="~/select2/js/select2.js" defer></script>
 <script src="~/js/jquery.maskMoney.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
 <script>
 
     $(document).ready(function () {
@@ -414,10 +415,10 @@
                 console.log(data)
                 $('input[name="tasa-cambiaria"]').val(data.resultado)
             } else {
-                //showAlert('error', 'Error al generar la factura');
+                showAlert('error', 'Error al generar la factura');
             }
         } catch (error) {
-            //showAlert('error', 'Error al comunicarse con el servidor.');
+            showAlert('error', 'Error al comunicarse con el servidor.');
         }
 
     }
@@ -428,6 +429,46 @@
         row.parentNode.removeChild(row);
         generarBalancesTotales()
     }
+
+    $(document).ready(function () {
+        $('#crearAsientoForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var formData = form.serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: form.attr('action'),
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: response.message
+                        }).then(() => {
+                            // Opcional: puedes recargar la página después de cerrar la alerta
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function (response) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.responseJSON.message
+                    });
+                }
+            });
+        });
+    });
     </script>
     
             
