@@ -35,7 +35,7 @@
         <div class="col form-group">
             <label>Fecha de contabilización
             </label>
-            <input type="date" id="fecha-cont" class="form-control" value='@DateTime.Today.ToString("dd-MM-yyyy")' pattern="\d{4}-\d{2}-\d{2}" />
+            <input type="date" id="fecha-cont" class="form-control" value='@DateTime.Today.ToString("dd-MM-yyyy")' pattern="\d{2}-\d{2}-\d{4}" />
         </div>
        
     </div>
@@ -221,8 +221,8 @@
             montoHaberValueMs.innerHTML = rateHaber.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
         }
        
-        comentarioValue.innerHTML = `<input type="text" id="comentario" placeholder = "Comentario" >`
-        referenciaValue.innerHTML = `<input type="text" id="referencia" placeholder = "Referencia" >`
+        comentarioValue.innerHTML = `<input type="text" id="comentario-tabla" placeholder = "Comentario" >`
+        referenciaValue.innerHTML = `<input type="text" id="referencia-tabla" placeholder = "Referencia" >`
 
         
         trElement.appendChild(cuentaContableCodigoValue)
@@ -305,24 +305,24 @@
   
     //armado de json
     async function postAsientos() {
-        let sucursalValor = document.getElementById('select-sucursal')
-        let fechaContablilizacion = document.getElementById('fecha-cont')
-        let comentarioHeader = document.getElementById('memo')
-        let referneciaHeader = document.getElementById('referencia')
-        let referenciaHeader1 = document.getElementById('referencia1')
-        if (sucursalValor || fechaContablilizacion) {
+        let sucursalValor = document.getElementById('select-sucursal').value
+        let fechaContablilizacion = document.getElementById('fecha-cont').value
+        let comentarioHeader = document.getElementById('memo').value
+        let referneciaHeader = document.getElementById('referencia').value
+        let referenciaHeader1 = document.getElementById('referencia1').value
+        if (sucursalValor && fechaContablilizacion) {
             var Asientos = []
-            $("#table tr").each(function () {
+            $("#tableBody tr").each(function () {
                 if ($(this).find('td').length > 0) {
-                   
+                    console.log($(this).find('td').lengt)
                     var asientoDetalle = {
-                      
+
                         AccountCode: $(this).find("#cuentaContableCodigoValue").text(),
                         Debit: removeLocalCurrencyFormat($(this).find("#montoDebeValue").text()),
                         Credit: removeLocalCurrencyFormat($(this).find("#montoHaberValue").text()),
-                        LineMemo: $(this).find("#comentario").text(),
+                        LineMemo: document.getElementById('comentario-tabla').value,
                         Sucursal: sucursalValor,
-                        Referencia1: $(this).find("#referencia").text()
+                        Referencia1: document.getElementById('referencia-tabla').value
 
 
                     };
@@ -338,6 +338,8 @@
                 LineasContables: Asientos
             }
             console.log(JSON.stringify(objectAsiento));
+        } else {
+            renderError();
         }
     }
 
