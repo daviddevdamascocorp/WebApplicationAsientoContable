@@ -144,7 +144,6 @@ namespace WebApplicationAsientoContable.Controllers
             return cuentasContables;
         }
 
-
         [HttpGet]
         public JsonResult EnviarFactor(DateTime fecha)
         {
