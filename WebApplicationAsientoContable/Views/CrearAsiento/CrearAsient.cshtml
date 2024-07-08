@@ -81,6 +81,7 @@
     </div>
 
 </div>
+<input type="hidden" value="" name="tasa-cambiaria" id="tasa-cambiaria" />
 <div class="container mt-2">
     <div class="panel panel-default">
         <div class="panel-body table-responsive">
@@ -201,20 +202,21 @@
         
         //ajsuto formato de bolivares
 
-      
+        var tasa = document.getElementById('tasa-cambiaria').value
         if (tipoDeAsiento === '1') {
          
 
+            console.log(tasa)
             montoDebeValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
 
-            var rateDebe = montoAsiento / 36
+            var rateDebe = montoAsiento / tasa
            
             montoDebeValueMs.innerHTML = rateDebe.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
 
         }
         else if (tipoDeAsiento === '2') {
             montoHaberValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
-            var rateHaber = montoAsiento / 36
+            var rateHaber = montoAsiento / tasa
             montoHaberValueMs.innerHTML = rateHaber.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
         }
        
@@ -407,8 +409,10 @@
             });
 
             if (response.ok) {
-                console.log(response)
-
+                
+                const data = await response.json();
+                console.log(data)
+                $('input[name="tasa-cambiaria"]').val(data.resultado)
             } else {
                 //showAlert('error', 'Error al generar la factura');
             }
@@ -421,7 +425,7 @@
     function deleteRow(button) {
         let row = button.parentNode.parentNode;
         row.parentNode.removeChild(row);
-        SumaCantidadProductos()
+        generarBalancesTotales()
     }
     </script>
     

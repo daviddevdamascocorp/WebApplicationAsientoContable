@@ -152,7 +152,7 @@ namespace WebApplicationAsientoContable.Controllers
             var factor = obtenerFactor(Convert.ToDateTime(fecha.Fecha));
             var resultado = factor.ToString();
             Console.WriteLine(resultado);
-            return Json(new { resultado });
+            return Json(new {resultado });
         }
 
         private string obtenerFactor(DateTime fecha)
