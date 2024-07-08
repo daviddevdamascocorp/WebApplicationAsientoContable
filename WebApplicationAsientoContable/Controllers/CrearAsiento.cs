@@ -145,11 +145,14 @@ namespace WebApplicationAsientoContable.Controllers
         }
 
 
-        [HttpGet]
-        public JsonResult EnviarFactor(DateTime fecha)
+        [HttpPost]
+        public JsonResult EnviarFactor([FromBody] Mydate fecha)
         {
-            var factor = obtenerFactor(fecha);
-            return Json(new { factor });
+            
+            var factor = obtenerFactor(Convert.ToDateTime(fecha.Fecha));
+            var resultado = factor.ToString();
+            Console.WriteLine(resultado);
+            return Json(new { resultado });
         }
 
         private string obtenerFactor(DateTime fecha)
@@ -247,11 +250,11 @@ namespace WebApplicationAsientoContable.Controllers
 
 
         [HttpPost]
-        public IActionResult CrearAsientodesdejson([FromForm] string jsonAsiento)
+        public IActionResult CrearAsientodesdejson([FromBody] AsientoContable jsonAsiento)
         {
             try
             {
-                AsientoContable asientoContable = JsonConvert.DeserializeObject<AsientoContable>(jsonAsiento);
+                AsientoContable asientoContable = jsonAsiento;
 
                 int sucursal = asientoContable.Sucursal;
                 string comentario = asientoContable.comentario;

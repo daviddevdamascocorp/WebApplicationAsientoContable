@@ -1,6 +1,8 @@
 ﻿@* For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860 *@
 @{
-    ViewData["Title"] = "Prueba Crear Asiento desde JSON";
+
+    ViewData["Title"] = "Crear pago";
+    Layout = "~/Views/Shared/_LayoutAsientosContables.cshtml";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -19,15 +21,15 @@
   
     <div class="row g-2">
         <div class="col form-group">
-            <label asp-for="Sucursal">Sucursal</label>
-            <select asp-for="Sucursal" asp-items="Model.Sucursales" class="form-select" id="select-sucursal">
+            <label>Sucursal</label>
+            <select  asp-items="Model.Sucursales" class="form-select" id="select-sucursal">
                 <option value="">Elige la Sucursal</option>
             </select>
         </div>
         <div class="col form-group">
             <label>Fecha de contabilización
             </label>
-            <input type="date" id="fecha-cont" class="form-control" value='@DateTime.Today.ToString("dd-MM-yyyy")' pattern="\d{2}-\d{2}-\d{4}" />
+            <input type="date" id="fecha-cont" class="form-control" value='@DateTime.Today.ToString("dd-MM-yyyy")' pattern="\d{2}-\d{2}-\d{4}" onchange="getTasaDolar(event)" />
         </div>
        
     </div>
@@ -56,8 +58,8 @@
         </div>
 
         <div class="col form-group">
-            <label asp-for="memo">Comentario</label>
-            <input asp-for="memo" class="form-control" id="memo" />
+            <label >Comentario</label>
+            <input  class="form-control" id="memo" />
         </div>
         <div class="col form-group">
             <label >Referencia</label>
@@ -93,6 +95,7 @@
                         <th>Crédito(MS)</th>
                         <th>Comentario</th>
                         <th>Referencia</th>
+                        <th>Acciones</th>
                         
                     </tr>
                 </thead>
@@ -124,7 +127,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('Debe'),
         });
-        
+
     });
     $(function () {
         $('#monto').maskMoney({ allowNegative: false, thousands: '.', decimal: ',' });
@@ -141,7 +144,7 @@
         let comentarios = document.getElementById('memo').value
         let referencia = document.getElementById('referencia').value
         
-        if (!sucursal || !fechaContabilizacion || !cuentaContableCodigo || !montoAsiento) {
+        if (!sucursal || !fechaContabilizacion || !cuentaContableCodigo || !montoAsiento || !tipoDeAsiento) {
             renderError();
             return;
         } else {
@@ -189,7 +192,9 @@
         //referencia
         const referenciaValue = document.createElement('td');
         referenciaValue.setAttribute('id', 'referenciaValue');
-
+        //acciones
+        const actionElement = document.createElement('td');
+        actionElement.setAttribute('id', 'actions');
         //genero tabla
         cuentaContableCodigoValue.innerHTML = cuentaContableCodigo
         cuentaContableNombreValue.innerHTML = cuentaContableNombre
@@ -215,7 +220,9 @@
        
         comentarioValue.innerHTML = `<input type="text" id="comentario-tabla" placeholder = "Comentario" >`
         referenciaValue.innerHTML = `<input type="text" id="referencia-tabla" placeholder = "Referencia" >`
-
+        actionElement.innerHTML = `
+                    <a class="btn btn-warning" onclick="editarFila(this)"><i class="fa-solid fa-edit"></i>Editar</a>
+                    <a class="btn btn-danger" onclick="deleteRow(this)"><i class="fa-solid fa-trash-can"></i>Borrar</a>`;
         
         trElement.appendChild(cuentaContableCodigoValue)
         trElement.appendChild(cuentaContableNombreValue)
@@ -225,12 +232,28 @@
         trElement.appendChild(montoHaberValueMs)
         trElement.appendChild(comentarioValue)
         trElement.appendChild(referenciaValue)
+        trElement.appendChild(actionElement)
         
         tableElement.appendChild(trElement);
         generarBalancesTotales()
     }
     buildFooterTable()
-    
+    function removeLocalCurrencyFormat(currencyString) {
+        console.log(currencyString)
+        // Remove any non-numeric characters (including commas)
+        const sanitizedString = currencyString.replace(/[^0-9,-]/g, '');
+        const decimalString = sanitizedString.replace(',', '.');
+        // Convert the sanitized string to a float
+        let floatValue;
+        if (!currencyString) {
+            floatValue = parseFloat(0);
+            return floatValue;
+        } else {
+            floatValue = parseFloat(decimalString)
+            return floatValue;
+        }
+
+    }
     function generarBalancesTotales() {
         var table = document.getElementById("tableBody");
            var montoDebeBolivares = 0
@@ -271,7 +294,6 @@
         const tfootWhiteSpace4 = document.createElement('td');
         //id para html
         const tfootDebeBoilivaresAsiento = document.createElement('td');
-        
         tfootDebeBoilivaresAsiento.setAttribute('id', 'tfootDebeBoilivaresAsiento');
         const tfootHaberBoilivaresAsiento = document.createElement('td');
         tfootHaberBoilivaresAsiento.setAttribute('id', 'tfootHaberBoilivaresAsiento');
@@ -329,47 +351,78 @@
                 referencia: referneciaHeader,
                 LineasContables: Asientos
             }
-            console.log(JSON.stringify(objectAsiento));
+            console.log(objectAsiento)
+            try {
+                const response = await fetch("/CrearAsiento/CrearAsientodesdejson", {
+                    method: "POST",
+                    body: JSON.stringify(objectAsiento),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (response.ok) {
+                    console.log(response)
+
+                } else {
+                    showAlert('error', 'Error al generar la factura');
+                }
+            } catch (error) {
+                showAlert('error', 'Error al comunicarse con el servidor.');
+            }
         } else {
             renderError();
         }
     }
 
-                var form = $(this);
-                var formData = form.serialize();
+    function editarFila(button) {
+        let row = button.parentNode.parentNode;
 
-                $.ajax({
-                    type: 'POST',
-                    url: form.attr('action'),
-                    data: formData,
-                    success: function (response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Éxito',
-                                text: response.message
-                            }).then(() => {
-                                // Opcional: puedes recargar la página después de cerrar la alerta
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: response.message
-                            });
-                        }
-                    },
-                    error: function (response) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: response.responseJSON.message
-                        });
-                    }
-                });
+        let evaluateMontoDebe = row.querySelector('#montoDebeValue').innerText;
+        let evaluateMontoHaber = row.querySelector('#montoHaberValue').innerText;
+        if (evaluateMontoDebe) {
+            let montoFormatoDebe = removeLocalCurrencyFormat(evaluateMontoDebe)
+            document.getElementById('monto').value = montoFormatoDebe;
+            
+
+        } else if (evaluateMontoHaber) {
+            let montoFormatoHaber = removeLocalCurrencyFormat(evaluateMontoHaber)
+            document.getElementById('monto').value = montoFormatoHaber;
+        }
+        // Elimina la fila antes de volver a agregarla
+        row.parentNode.removeChild(row);
+        generarBalancesTotales()
+    }
+    //consulto divisas en base a la fecha
+    async function getTasaDolar(e){
+        console.log(e.target.value)
+        const objectFecha = { fecha: e.target.value }
+        try {
+            const response = await fetch("/CrearAsiento/EnviarFactor", {
+                method: "POST",
+                body: JSON.stringify(objectFecha),
+                headers: {
+                    "Content-Type": "application/json"
+                }
             });
-        });
+
+            if (response.ok) {
+                console.log(response)
+
+            } else {
+                //showAlert('error', 'Error al generar la factura');
+            }
+        } catch (error) {
+            //showAlert('error', 'Error al comunicarse con el servidor.');
+        }
+
+    }
+
+    function deleteRow(button) {
+        let row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        SumaCantidadProductos()
+    }
     </script>
     
-}                  
+            

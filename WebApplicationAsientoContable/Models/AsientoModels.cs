@@ -5,6 +5,11 @@ namespace WebApplicationAsientoContable.Models
 {
     public class AsientoModels
     {
+        public class Mydate
+        {
+            public string Fecha { get; set; }
+            
+        }
         public class AsientoContable
         {
             public int Sucursal { get; set; }
