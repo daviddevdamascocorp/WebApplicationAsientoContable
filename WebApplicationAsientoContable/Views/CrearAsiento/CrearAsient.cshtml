@@ -421,7 +421,8 @@
         }
 
     }
-
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById("fecha-cont").setAttribute('max', today);
     function deleteRow(button) {
         let row = button.parentNode.parentNode;
         row.parentNode.removeChild(row);
