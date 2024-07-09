@@ -16,8 +16,8 @@ namespace WebApplicationAsientoContable.Controllers
                         myCompany.Server = "ERPSAP\\SAPB1";
                         myCompany.CompanyDB = "DAMASCO_PRODUCTIVA";
                         myCompany.DbServerType = SAPbobsCOM.BoDataServerTypes.dst_MSSQL2019;
-                        myCompany.UserName = "emahmud";
-                        myCompany.Password = "Zizou..10";
+                        myCompany.UserName = "manager";
+                        myCompany.Password = "*Mb2021*";
                         int ret = myCompany.Connect();
                         string errMsg = myCompany.GetLastErrorDescription();
                         int ErrNo = myCompany.GetLastErrorCode();

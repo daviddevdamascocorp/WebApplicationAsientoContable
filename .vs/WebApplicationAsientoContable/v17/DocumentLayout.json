@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|solutionrelative:webapplicationasientocontable\\views\\crearasiento\\crearasient.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|c:\\users\\david\\documents\\webapplicationasientocontable\\webapplicationasientocontable\\controllers\\conexionsap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|solutionrelative:webapplicationasientocontable\\controllers\\conexionsap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|c:\\users\\david\\documents\\webapplicationasientocontable\\webapplicationasientocontable\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|solutionrelative:webapplicationasientocontable\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|c:\\users\\david\\documents\\webapplicationasientocontable\\webapplicationasientocontable\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|solutionrelative:webapplicationasientocontable\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|c:\\users\\david\\documents\\webapplicationasientocontable\\webapplicationasientocontable\\controllers\\conexionsap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|solutionrelative:webapplicationasientocontable\\controllers\\conexionsap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3540F322-0805-45D1-BC4D-9009C16E146D}|WebApplicationAsientoContable\\WebApplicationAsientoContable.csproj|c:\\users\\david\\documents\\webapplicationasientocontable\\webapplicationasientocontable\\views\\shared\\_layoutasientoscontables.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -50,7 +50,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "WebApplicationAsientoContable\\Views\\Home\\Index.cshtml",
@@ -58,12 +58,11 @@
               "RelativeToolTip": "WebApplicationAsientoContable\\Views\\Home\\Index.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-02T15:32:41.221Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-02T15:32:41.221Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "CrearAsiento.cs",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\Controllers\\CrearAsiento.cs",
               "RelativeDocumentMoniker": "WebApplicationAsientoContable\\Controllers\\CrearAsiento.cs",
@@ -71,12 +70,11 @@
               "RelativeToolTip": "WebApplicationAsientoContable\\Controllers\\CrearAsiento.cs",
               "ViewState": "AQIAAPMAAAAAAAAAAAAnwP8AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T14:56:44.781Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-02T14:56:44.781Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "WebApplicationAsientoContable\\Views\\Shared\\_Layout.cshtml",
@@ -84,18 +82,17 @@
               "RelativeToolTip": "WebApplicationAsientoContable\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AQIAAAUAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-04T16:35:36.521Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-04T16:35:36.521Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Conexionsap.cs",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\Controllers\\Conexionsap.cs",
               "RelativeDocumentMoniker": "WebApplicationAsientoContable\\Controllers\\Conexionsap.cs",
               "ToolTip": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\Controllers\\Conexionsap.cs",
               "RelativeToolTip": "WebApplicationAsientoContable\\Controllers\\Conexionsap.cs",
-              "ViewState": "AQIAAC4AAAAAAAAAAAArwDsAAAAQAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-02T14:57:38.447Z",
               "EditorCaption": ""
@@ -110,8 +107,7 @@
               "RelativeToolTip": "WebApplicationAsientoContable\\Views\\Shared\\_LayoutAsientosContables.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-02T16:11:11.526Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-02T16:11:11.526Z"
             },
             {
               "$type": "Document",
@@ -121,14 +117,14 @@
               "RelativeDocumentMoniker": "WebApplicationAsientoContable\\Views\\CrearAsiento\\CrearAsient.cshtml",
               "ToolTip": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\Views\\CrearAsiento\\CrearAsient.cshtml",
               "RelativeToolTip": "WebApplicationAsientoContable\\Views\\CrearAsiento\\CrearAsient.cshtml",
-              "ViewState": "AQIAAGsAAAAAAAAAAAArwIIAAABNAAAA",
+              "ViewState": "AQIAAHUAAAAAAAAAAAAkwI4AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-07-02T15:31:56.246Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "WebApplicationAsientoContable\\Views\\_ViewStart.cshtml",
@@ -136,8 +132,7 @@
               "RelativeToolTip": "WebApplicationAsientoContable\\Views\\_ViewStart.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-02T15:32:48.019Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-02T15:32:48.019Z"
             },
             {
               "$type": "Document",
@@ -149,8 +144,7 @@
               "RelativeToolTip": "WebApplicationAsientoContable\\Models\\AsientoModels.cs",
               "ViewState": "AQIAAAUAAAAAAAAAAAAAAA4AAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T14:57:24.225Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-02T14:57:24.225Z"
             },
             {
               "$type": "Document",

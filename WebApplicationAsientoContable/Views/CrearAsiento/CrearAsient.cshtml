@@ -140,6 +140,9 @@
     $(function () {
         $('#monto').maskMoney({ allowNegative: false, thousands: '.', decimal: ',' });
     })
+    $('#monto').on('paste', function () {
+        $(this).val(' ');
+    });
 
     async function generarTabla(){ 
         let sucursal = document.getElementById('select-sucursal').value;
