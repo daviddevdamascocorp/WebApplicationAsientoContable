@@ -53,6 +53,14 @@
  
   <div class="row g-4">
         <div class="col form-group">
+            <label>Moneda</label>
+            <select id="select-currency" class="form-select">
+              
+                <option value="1">Bolívar</option>
+                <option value="2">Dólar</option>
+            </select>
+        </div>
+        <div class="col form-group">
             <label>Monto</label>
             <input class="form-control" id="monto" />
         </div>
@@ -65,10 +73,7 @@
             <label >Referencia</label>
             <input  class="form-control" id="referencia"/>
         </div>
-        <div class="col form-group">
-            <label>Referencia 1</label>
-            <input class="form-control" id="referencia1" />
-        </div>
+        
   </div>
 
    
@@ -128,9 +133,9 @@
             theme: "bootstrap-5",
 
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-            $('input.select2-search__field').prop('placeholder', 'enter username or city');
+           
         });
-
+     
     });
     $(function () {
         $('#monto').maskMoney({ allowNegative: false, thousands: '.', decimal: ',' });
@@ -146,13 +151,13 @@
         let montoAsiento = $("#monto").maskMoney('unmasked')[0]
         let comentarios = document.getElementById('memo').value
         let referencia = document.getElementById('referencia').value
-        
+        let divisasSelect = document.getElementById('select-currency').value
         if (!sucursal || !fechaContabilizacion || !cuentaContableCodigo || !montoAsiento || !tipoDeAsiento) {
             renderError();
             return;
         } else {
-           
-                     agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento, montoAsiento, comentarios)
+
+            agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento, montoAsiento, comentarios, divisasSelect)
         }
     }
     var formatter = new Intl.NumberFormat('es-VE', {
@@ -162,7 +167,7 @@
         minimumFractionDigits: 2
     });
    
-    function agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento,montoAsiento, comentarios) {
+    function agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento, montoAsiento, comentarios, divisasSelect) {
         //limpio formularios
       
         document.getElementById('monto').value = ''
@@ -203,23 +208,45 @@
         cuentaContableNombreValue.innerHTML = cuentaContableNombre
         
         //ajsuto formato de bolivares
-
+        
         var tasa = document.getElementById('tasa-cambiaria').value
+
         if (tipoDeAsiento === '1') {
-         
 
-            console.log(tasa)
-            montoDebeValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
+            if (divisasSelect === '1') { 
+                //cuando ingreso monto en bolivares
+                console.log(tasa)
+                montoDebeValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
 
-            var rateDebe = montoAsiento / tasa
+                var rateDebe = montoAsiento / tasa
+
+                montoDebeValueMs.innerHTML = rateDebe.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+            } else if (divisasSelect === '2') {
+                //cuando ingreso monto en dolares
+                console.log(tasa)
+                var rateHaber = montoAsiento * tasa
+                montoDebeValue.innerHTML = formatter.format(rateHaber).replace("VED", "Bs.");
+                montoDebeValueMs.innerHTML = montoAsiento.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+            
+            }
            
-            montoDebeValueMs.innerHTML = rateDebe.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
 
         }
         else if (tipoDeAsiento === '2') {
-            montoHaberValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
-            var rateHaber = montoAsiento / tasa
-            montoHaberValueMs.innerHTML = rateHaber.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+            if (divisasSelect === '1') {
+                //cuando ingreso monto en bolivares
+                montoHaberValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
+                var rateHaber = montoAsiento / tasa
+                montoHaberValueMs.innerHTML = rateHaber.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+            
+            } else if (divisasSelect === '2') {
+                //cuando ingreso monto en dolares
+                var rateHaber = montoAsiento * tasa
+                montoHaberValue.innerHTML = formatter.format(rateHaber).replace("VED", "Bs.");
+                montoHaberValueMs.innerHTML = montoAsiento.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
+            
+            }
+           
         }
        
         comentarioValue.innerHTML = `<input type="text" id="comentario-tabla" placeholder = "Comentario" >`
