@@ -1,0 +1,9 @@
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\WebApplicationAsientoContable.exe
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\appsettings.Development.json
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\appsettings.json
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\libman.json
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\WebApplicationAsientoContable.dll
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\WebApplicationAsientoContable.deps.json
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\WebApplicationAsientoContable.runtimeconfig.json
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\WebApplicationAsientoContable.pdb
+C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Release\net7.0\PubTmp\Out\Newtonsoft.Json.dll

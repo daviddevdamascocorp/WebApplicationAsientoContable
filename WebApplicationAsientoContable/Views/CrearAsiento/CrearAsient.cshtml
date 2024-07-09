@@ -1,7 +1,7 @@
 ﻿@* For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860 *@
 @{
 
-    ViewData["Title"] = "Crear pago";
+   
     Layout = "~/Views/Shared/_LayoutAsientosContables.cshtml";
 }
 
@@ -29,7 +29,7 @@
         <div class="col form-group">
             <label>Fecha de contabilización
             </label>
-            <input type="date" id="fecha-cont" class="form-control" value='@DateTime.Today.ToString("dd-MM-yyyy")' pattern="\d{2}-\d{2}-\d{4}" onchange="getTasaDolar(event)" />
+            <input type="date" id="fecha-cont" class="form-control" value='@DateTime.Today.ToString("dd-MM-yyyy")' pattern="\d{2}-\d{2}-\d{4}" onchange="getTasaDolar(event)" onkeydown="return false" />
         </div>
        
     </div>
@@ -126,8 +126,9 @@
     $(document).ready(function () {
         $('#cuenta-contable').select2({
             theme: "bootstrap-5",
+
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-            placeholder: $(this).data('Debe'),
+            $('input.select2-search__field').prop('placeholder', 'enter username or city');
         });
 
     });
@@ -365,13 +366,42 @@
                 });
 
                 if (response.ok) {
-                    console.log(response)
+                   // console.log(response)
+                   let data = await response.json()
+                    console.log(data)
+                    console.log(data.resultado)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: data.message
+                    }).then(() => {
+                        // Opcional: puedes recargar la página después de cerrar la alerta
+                        location.reload();
+                    });
+
+
+
+
+
+                  
 
                 } else {
-                    showAlert('error', 'Error al generar la factura');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message
+                    });
                 }
             } catch (error) {
-                showAlert('error', 'Error al comunicarse con el servidor.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al comunicarse con el servidor.',
+                  
+                }).then(() => {
+                    // Opcional: puedes recargar la página después de cerrar la alerta
+                    //location.reload();
+                })
+                //showAlert('error', 'Error al comunicarse con el servidor.');
             }
         } else {
             renderError();
@@ -385,12 +415,13 @@
         let evaluateMontoHaber = row.querySelector('#montoHaberValue').innerText;
         if (evaluateMontoDebe) {
             let montoFormatoDebe = removeLocalCurrencyFormat(evaluateMontoDebe)
-            document.getElementById('monto').value = montoFormatoDebe;
-            
+            //document.getElementById('monto').value = montoFormatoDebe;
+            $('input#monto').val(montoFormatoDebe).trigger('mask.maskMoney');
 
         } else if (evaluateMontoHaber) {
             let montoFormatoHaber = removeLocalCurrencyFormat(evaluateMontoHaber)
-            document.getElementById('monto').value = montoFormatoHaber;
+            //document.getElementById('monto').value = montoFormatoHaber;
+            $('input#monto').val(montoFormatoHaber).trigger('mask.maskMoney');
         }
         // Elimina la fila antes de volver a agregarla
         row.parentNode.removeChild(row);
@@ -414,6 +445,7 @@
                 const data = await response.json();
                 console.log(data)
                 $('input[name="tasa-cambiaria"]').val(data.resultado)
+
             } else {
                 showAlert('error', 'Error al generar la factura');
             }
@@ -430,45 +462,7 @@
         generarBalancesTotales()
     }
 
-    $(document).ready(function () {
-        $('#crearAsientoForm').on('submit', function (e) {
-            e.preventDefault();
 
-            var form = $(this);
-            var formData = form.serialize();
-
-            $.ajax({
-                type: 'POST',
-                url: form.attr('action'),
-                data: formData,
-                success: function (response) {
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Éxito',
-                            text: response.message
-                        }).then(() => {
-                            // Opcional: puedes recargar la página después de cerrar la alerta
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: response.message
-                        });
-                    }
-                },
-                error: function (response) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: response.responseJSON.message
-                    });
-                }
-            });
-        });
-    });
     </script>
     
             
