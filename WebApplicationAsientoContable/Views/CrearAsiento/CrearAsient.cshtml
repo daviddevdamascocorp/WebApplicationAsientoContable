@@ -73,6 +73,11 @@
             <label >Referencia</label>
             <input  class="form-control" id="referencia"/>
         </div>
+
+        <div class="col form-group">
+            <label>Referencia2</label>
+            <input class="form-control" id="referencia2" />
+        </div>
         
   </div>
 
@@ -357,7 +362,7 @@
         let fechaContablilizacion = document.getElementById('fecha-cont').value
         let comentarioHeader = document.getElementById('memo').value
         let referneciaHeader = document.getElementById('referencia').value
-        let referenciaHeader1 = document.getElementById('referencia1').value
+        let referenciaHeader1 = document.getElementById('referencia2').value
         if (sucursalValor && fechaContablilizacion) {
             var Asientos = []
             $("#tableBody tr").each(function () {
@@ -385,7 +390,17 @@
                 referencia: referneciaHeader,
                 LineasContables: Asientos
             }
-            console.log(objectAsiento)
+            console.log(objectAsiento);
+
+            // Mostrar la alerta de carga
+            Swal.fire({
+                title: 'Cargando',
+                html: 'Por favor espera...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             try {
                 const response = await fetch("/CrearAsiento/CrearAsientodesdejson", {
                     method: "POST",

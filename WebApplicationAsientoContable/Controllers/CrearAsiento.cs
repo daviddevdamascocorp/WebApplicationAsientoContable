@@ -186,7 +186,7 @@ namespace WebApplicationAsientoContable.Controllers
             return factor;
         }
 
-        private int Crear(int sucursal, DateTime fecha ,List<AsientoContableLinea> lineas, string memo, string referencia)
+        private int Crear(int sucursal, DateTime fecha ,List<AsientoContableLinea> lineas, string memo, string referencia,string referencia2)
         {
             try
             {
@@ -203,6 +203,7 @@ namespace WebApplicationAsientoContable.Controllers
                     asientoContable.DueDate = fecha;
                     asientoContable.Memo = memo;
                     asientoContable.Reference = referencia;
+                    asientoContable.Reference2 = referencia2;
 
                     foreach (var linea in lineas)
                     {
@@ -259,10 +260,11 @@ namespace WebApplicationAsientoContable.Controllers
                 int sucursal = asientoContable.Sucursal;
                 string comentario = asientoContable.comentario;
                 string referencia = asientoContable.referencia;
+                string referencia2 = asientoContable.referencia2;
                 DateTime fecha = asientoContable.fecha;
                 List<AsientoContableLinea> lineas = asientoContable.LineasContables;
 
-                int resultado = Crear(sucursal, fecha,lineas, comentario, referencia);
+                int resultado = Crear(sucursal, fecha,lineas, comentario, referencia,referencia2);
 
                 if (resultado == -1)
                 {

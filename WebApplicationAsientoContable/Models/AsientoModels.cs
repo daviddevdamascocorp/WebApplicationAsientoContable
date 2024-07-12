@@ -15,6 +15,8 @@ namespace WebApplicationAsientoContable.Models
             public int Sucursal { get; set; }
             public string comentario { get; set; }
             public string referencia { get; set; }
+
+            public string referencia2 { get; set; }
             public List<AsientoContableLinea> LineasContables { get; set; }
 
             public DateTime fecha { get; set; }
