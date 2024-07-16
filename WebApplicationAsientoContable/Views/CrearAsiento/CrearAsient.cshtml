@@ -458,17 +458,21 @@
 
         let evaluateMontoDebe = row.querySelector('#montoDebeValue').innerText;
         let evaluateMontoHaber = row.querySelector('#montoHaberValue').innerText;
+        let cuentaSelector = row.querySelector('#cuentaContableCodigoValue').innerText;
+        console.log(cuentaSelector)
         if (evaluateMontoDebe) {
             let montoFormatoDebe = removeLocalCurrencyFormat(evaluateMontoDebe)
             //document.getElementById('monto').value = montoFormatoDebe;
-            $('input#monto').val(montoFormatoDebe).trigger('mask.maskMoney');
-
+            $('input#monto').val(evaluateMontoDebe).trigger('mask.maskMoney');
+            console.log(montoFormatoDebe)
         } else if (evaluateMontoHaber) {
             let montoFormatoHaber = removeLocalCurrencyFormat(evaluateMontoHaber)
             //document.getElementById('monto').value = montoFormatoHaber;
-            $('input#monto').val(montoFormatoHaber).trigger('mask.maskMoney');
+            $('input#monto').val(evaluateMontoHaber).trigger('mask.maskMoney');
         }
         // Elimina la fila antes de volver a agregarla
+        $("#cuenta-contable").select2();
+        $('#cuenta-contable').val(cuentaSelector).trigger("change")
         row.parentNode.removeChild(row);
         generarBalancesTotales()
     }
