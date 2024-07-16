@@ -70,12 +70,6 @@ C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoCont
 C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.pdb
 C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\WebApplicationAsientoContable.genruntimeconfig.cache
 C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\obj\Debug\net7.0\ref\WebApplicationAsientoContable.dll
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\release\web.config
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\release\appsettings.Development.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\release\appsettings.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\release\libman.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\release\WebApplicationAsientoContable.deps.json
-C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\release\WebApplicationAsientoContable.runtimeconfig.json
 C:\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\appsettings.Development.json
 C:\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\appsettings.json
 C:\WebApplicationAsientoContable\WebApplicationAsientoContable\bin\Debug\net7.0\libman.json

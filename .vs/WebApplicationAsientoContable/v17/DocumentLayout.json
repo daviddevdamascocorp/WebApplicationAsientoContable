@@ -80,7 +80,7 @@
               "RelativeDocumentMoniker": "WebApplicationAsientoContable\\Views\\CrearAsiento\\CrearAsient.cshtml",
               "ToolTip": "C:\\Users\\david\\Documents\\WebApplicationAsientoContable\\WebApplicationAsientoContable\\Views\\CrearAsiento\\CrearAsient.cshtml",
               "RelativeToolTip": "WebApplicationAsientoContable\\Views\\CrearAsiento\\CrearAsient.cshtml",
-              "ViewState": "AQIAAMYBAAAAAAAAAAAAANoBAAAwAAAA",
+              "ViewState": "AQIAACUBAAAAAAAAAAAAAAcBAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-07-02T15:31:56.246Z",
               "EditorCaption": ""
@@ -131,8 +131,7 @@
               "RelativeToolTip": "WebApplicationAsientoContable\\Controllers\\CrearAsiento.cs",
               "ViewState": "AQIAAPwAAAAAAAAAAAAowAQBAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T14:56:44.781Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-02T14:56:44.781Z"
             },
             {
               "$type": "Document",

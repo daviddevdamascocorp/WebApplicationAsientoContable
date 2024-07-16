@@ -55,7 +55,7 @@
         <div class="col form-group">
             <label>Moneda</label>
             <select id="select-currency" class="form-select">
-              
+                <option value="">Elige una moneda</option>
                 <option value="1">Bolívar</option>
                 <option value="2">Dólar</option>
             </select>
@@ -160,7 +160,7 @@
         let comentarios = document.getElementById('memo').value
         let referencia = document.getElementById('referencia').value
         let divisasSelect = document.getElementById('select-currency').value
-        if (!sucursal || !fechaContabilizacion || !cuentaContableCodigo || !montoAsiento || !tipoDeAsiento) {
+        if (!sucursal || !fechaContabilizacion || !cuentaContableCodigo || !montoAsiento || !tipoDeAsiento || !divisasSelect) {
             renderError();
             return;
         } else {
@@ -179,8 +179,8 @@
         //limpio formularios
       
         document.getElementById('monto').value = ''
-       
-
+        document.getElementById('select-currency').value = ''
+        document.getElementById('select-debe-haber').value = ''
         //construimos tabla
         const tableElement = document.getElementById('tableBody');
         const trElement = document.createElement('tr');
