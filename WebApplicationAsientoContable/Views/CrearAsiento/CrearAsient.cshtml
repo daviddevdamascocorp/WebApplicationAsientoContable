@@ -165,7 +165,7 @@
             return;
         } else {
 
-            agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento, montoAsiento, comentarios, divisasSelect)
+            agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento, montoAsiento, comentarios,referencia, divisasSelect)
         }
     }
     var formatter = new Intl.NumberFormat('es-VE', {
@@ -175,7 +175,7 @@
         minimumFractionDigits: 2
     });
    
-    function agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento, montoAsiento, comentarios, divisasSelect) {
+    function agregarFilaAtabla(sucursal, fechaContabilizacion, cuentaContableCodigo, cuentaContableNombre, tipoDeAsiento, montoAsiento, comentarios,referencias, divisasSelect) {
         //limpio formularios
       
         document.getElementById('monto').value = ''
@@ -256,9 +256,11 @@
             }
            
         }
+        var comentInput = comentarios.trim()
+        var referenciaInput = referencias
        
-        comentarioValue.innerHTML = `<input type="text" id="comentario-tabla" placeholder = "Comentario" >`
-        referenciaValue.innerHTML = `<input type="text" id="referencia-tabla" placeholder = "Referencia" >`
+        comentarioValue.innerHTML = `<input type="text" id="comentario-tabla" placeholder = "Comentario" value="${comentInput}"">`
+        referenciaValue.innerHTML = `<input type="text" id="referencia-tabla" placeholder = "Referencia" value="${referenciaInput}">`
         actionElement.innerHTML = `
                     <a class="btn btn-warning" onclick="editarFila(this)"><i class="fa-solid fa-edit"></i>Editar</a>
                     <a class="btn btn-danger" onclick="deleteRow(this)"><i class="fa-solid fa-trash-can"></i>Borrar</a>`;
@@ -366,16 +368,22 @@
         if (sucursalValor && fechaContablilizacion) {
             var Asientos = []
             $("#tableBody tr").each(function () {
-                if ($(this).find('td').length > 0) {
-                    console.log($(this).find('td').lengt)
-                    var asientoDetalle = {
 
+                let comentarioTabla = document.querySelector('#comentario-tabla').value
+                if ($(this).find('td').length > 0) {
+                    //let comentarioTabla = document.querySelector('#comentario-tabla').value
+                    console.log(comentarioTabla)
+                    //let comentarioTabla = $('#comentario-tabla').val()
+                    let referenciaTabla = $('#referencia-tabla')
+                    console.log(referenciaTabla.val())
+                    var asientoDetalle = {
+                 
                         AccountCode: $(this).find("#cuentaContableCodigoValue").text(),
                         Debit: removeLocalCurrencyFormat($(this).find("#montoDebeValue").text()),
                         Credit: removeLocalCurrencyFormat($(this).find("#montoHaberValue").text()),
-                        LineMemo: document.getElementById('comentario-tabla').value,
+                        LineMemo: $(this).find("#comentario-tabla").val(),
                         Sucursal: sucursalValor,
-                        Referencia1: document.getElementById('referencia-tabla').value
+                        Referencia1: $(this).find("#referencia-tabla").val()
 
 
                     };
@@ -402,13 +410,13 @@
                 }
             });
             try {
-                const response = await fetch("/CrearAsiento/CrearAsientodesdejson", {
+                     const response = await fetch("/CrearAsiento/CrearAsientodesdejson", {
                     method: "POST",
                     body: JSON.stringify(objectAsiento),
                     headers: {
                         "Content-Type": "application/json"
-                    }
-                });
+                        }
+                    });
 
                 if (response.ok) {
                    // console.log(response)
@@ -423,13 +431,6 @@
                         // Opcional: puedes recargar la página después de cerrar la alerta
                         location.reload();
                     });
-
-
-
-
-
-                  
-
                 } else {
                     Swal.fire({
                         icon: 'error',
