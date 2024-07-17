@@ -148,14 +148,15 @@ namespace WebApplicationAsientoContable.Controllers
         [HttpPost]
         public JsonResult EnviarFactor([FromBody] Mydate fecha)
         {
-            
-            var factor = obtenerFactor(Convert.ToDateTime(fecha.Fecha));
+            Console.WriteLine(fecha.Fecha);
+
+            var factor = obtenerFactor(fecha.Fecha);
             var resultado = factor.ToString();
             Console.WriteLine(resultado);
             return Json(new {resultado });
         }
 
-        private string obtenerFactor(DateTime fecha)
+        private string obtenerFactor(string fecha)
         {
             string factor = string.Empty;
             try

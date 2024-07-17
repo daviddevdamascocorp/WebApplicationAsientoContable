@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebApplicationAsientoContable")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5241909df12f110afb8c0ebe0cdf2f5d91595fce")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6702c8ef232ba22d1464bd24643afea161853ec5")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebApplicationAsientoContable")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebApplicationAsientoContable")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

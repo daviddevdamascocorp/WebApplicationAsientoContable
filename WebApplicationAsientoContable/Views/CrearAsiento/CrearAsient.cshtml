@@ -208,9 +208,18 @@
         //referencia
         const referenciaValue = document.createElement('td');
         referenciaValue.setAttribute('id', 'referenciaValue');
+        //select de divisas
+        const currencyValue = document.createElement('td');
+        currencyValue.setAttribute('id', 'currencyValue');
+        currencyValue.style.visibility = 'collapse'
+        //select de tipo de asiento
+        const asientoValue = document.createElement('td');
+        asientoValue.setAttribute('id', 'asientoValue');
+        asientoValue.style.visibility = 'collapse'
         //acciones
         const actionElement = document.createElement('td');
         actionElement.setAttribute('id', 'actions');
+    
         //genero tabla
         cuentaContableCodigoValue.innerHTML = cuentaContableCodigo
         cuentaContableNombreValue.innerHTML = cuentaContableNombre
@@ -218,7 +227,8 @@
         //ajsuto formato de bolivares
         
         var tasa = document.getElementById('tasa-cambiaria').value
-
+        currencyValue.innerHTML = divisasSelect
+        asientoValue.innerHTML = tipoDeAsiento
         if (tipoDeAsiento === '1') {
 
             if (divisasSelect === '1') { 
@@ -273,6 +283,8 @@
         trElement.appendChild(montoHaberValueMs)
         trElement.appendChild(comentarioValue)
         trElement.appendChild(referenciaValue)
+        trElement.appendChild(currencyValue)
+        trElement.appendChild(asientoValue)
         trElement.appendChild(actionElement)
         
         tableElement.appendChild(trElement);
@@ -460,7 +472,10 @@
         let evaluateMontoDebe = row.querySelector('#montoDebeValue').innerText;
         let evaluateMontoHaber = row.querySelector('#montoHaberValue').innerText;
         let cuentaSelector = row.querySelector('#cuentaContableCodigoValue').innerText;
-        console.log(cuentaSelector)
+        let asientoSelector = row.querySelector('#asientoValue').innerText
+        let divisasSelector = row.querySelector('#currencyValue').innerText
+        console.log(divisasSelector)
+        
         if (evaluateMontoDebe) {
             let montoFormatoDebe = removeLocalCurrencyFormat(evaluateMontoDebe)
             //document.getElementById('monto').value = montoFormatoDebe;
@@ -473,6 +488,8 @@
         }
         // Elimina la fila antes de volver a agregarla
         $("#cuenta-contable").select2();
+        document.getElementById('select-debe-haber').value = asientoSelector
+         document.getElementById('select-currency').value = divisasSelector
         $('#cuenta-contable').val(cuentaSelector).trigger("change")
         row.parentNode.removeChild(row);
         generarBalancesTotales()

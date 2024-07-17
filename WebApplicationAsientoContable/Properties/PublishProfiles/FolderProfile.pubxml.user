@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\david\Documents\WebApplicationAsientoContable\WebApplicationAsientoContable\release</_PublishTargetUrl>
-    <History>True|2024-07-16T17:02:10.7041495Z||;</History>
+    <History>True|2024-07-17T12:40:25.3565757Z||;True|2024-07-16T13:02:10.7041495-04:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
