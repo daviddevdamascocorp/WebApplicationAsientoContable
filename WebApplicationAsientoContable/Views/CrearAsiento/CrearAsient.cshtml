@@ -62,7 +62,7 @@
         </div>
         <div class="col form-group">
             <label>Monto</label>
-            <input class="form-control" id="monto" />
+            <input class="form-control" id="monto" lang="en" />
         </div>
 
         <div class="col form-group">
@@ -376,7 +376,7 @@
         let fechaContablilizacion = document.getElementById('fecha-cont').value
         let comentarioHeader = document.getElementById('memo').value
         let referneciaHeader = document.getElementById('referencia').value
-        let referenciaHeader1 = document.getElementById('referencia2').value
+        let referenciaHeader2 = document.getElementById('referencia2').value
         if (sucursalValor && fechaContablilizacion) {
             var Asientos = []
             $("#tableBody tr").each(function () {
@@ -408,6 +408,7 @@
                 fecha: fechaContablilizacion,
                 comentario: comentarioHeader,
                 referencia: referneciaHeader,
+                referencia2: referenciaHeader2,
                 LineasContables: Asientos
             }
             console.log(objectAsiento);
