@@ -227,6 +227,7 @@
         //ajsuto formato de bolivares
         
         var tasa = document.getElementById('tasa-cambiaria').value
+        var tasaRes = removeLocalCurrencyFormat(tasa)
         currencyValue.innerHTML = divisasSelect
         asientoValue.innerHTML = tipoDeAsiento
         if (tipoDeAsiento === '1') {
@@ -234,15 +235,16 @@
             if (divisasSelect === '1') { 
                 //cuando ingreso monto en bolivares
                 console.log(tasa)
-                montoDebeValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
+                var dbBolivares = removeLocalCurrencyFormat(table.rows[i].cells[2].innerHTML)
+                       montoDebeValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
 
-                var rateDebe = montoAsiento / tasa
+                var rateDebe = montoAsiento /  tasaRes
 
                 montoDebeValueMs.innerHTML = rateDebe.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
             } else if (divisasSelect === '2') {
                 //cuando ingreso monto en dolares
                 console.log(tasa)
-                var rateHaber = montoAsiento * tasa
+                var rateHaber = montoAsiento *  tasaRes
                 montoDebeValue.innerHTML = formatter.format(rateHaber).replace("VED", "Bs.");
                 montoDebeValueMs.innerHTML = montoAsiento.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
             
@@ -254,12 +256,13 @@
             if (divisasSelect === '1') {
                 //cuando ingreso monto en bolivares
                 montoHaberValue.innerHTML = formatter.format(montoAsiento).replace("VED", "Bs.");
-                var rateHaber = montoAsiento / tasa
+                
+                var rateHaber = montoAsiento /  tasaRes
                 montoHaberValueMs.innerHTML = rateHaber.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
             
             } else if (divisasSelect === '2') {
                 //cuando ingreso monto en dolares
-                var rateHaber = montoAsiento * tasa
+                var rateHaber = montoAsiento *  tasaRes
                 montoHaberValue.innerHTML = formatter.format(rateHaber).replace("VED", "Bs.");
                 montoHaberValueMs.innerHTML = montoAsiento.toLocaleString('es-VE', { style: 'currency', currency: 'USD' });
             
